@@ -1,4 +1,4 @@
-# Welcome to the Template vector Library (TVL)!
+# Welcome to the Template Vector Library (TVL)!
 
 This is a stand-alone version of the Template Vector Library. 
 MorphStore still has an integrated version in the master branch and a TVL branch for testing purposes. This repository may be slightly behind either of these branches.
