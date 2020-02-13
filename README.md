@@ -31,13 +31,13 @@ g++ -DAVXTWO -mavx2 aggregate.cpp
 
 g++ -DAVXTWO -DAVX512 -mavx2 -mavx512f -march=knl aggregate.cpp
 
-### ARM with NEON
+### ARM with NEON (Here: Cortex A53)
 
 g++ -DNEON -mcpu=cortex-a53 -flax-vector-conversions aggregate.cpp
 
-**Note** Compiling for arm (especially for 32 bit cores) sometimes requires a few more flags specifying the architecture more precisely, e.g. -mfloat-abi=hard
+**Note** Compiling for arm (especially for 32 bit cores) sometimes requires a few more flags specifying the architecture more precisely, e.g. -mfloat-abi=hard.
 
-#### Cross compile for ARM with NEON (tested for Cortex-A53, might work on your mobile)
+#### Cross compile for ARM with NEON (tested for Cortex-A53, might also work on your mobile)
 
 /usr/bin/aarch64-linux-gnu-g++ -DNEON -mcpu=cortex-a53 -flax-vector-conversions aggregate.cpp 
 
