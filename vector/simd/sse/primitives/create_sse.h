@@ -57,7 +57,7 @@ namespace vectorlib {
       template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static typename sse< v128< U > >::vector_t
-      set1( int a0) {
+      set1( uint64_t a0) {
          TALLY_CREATE_SIMD
          
          return _mm_set1_epi64x(a0);
@@ -98,7 +98,7 @@ namespace vectorlib {
       template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static typename sse< v128< U > >::vector_t
-      set1( int a0) {
+      set1( uint32_t a0) {
          TALLY_CREATE_SIMD
          
          return _mm_set1_epi32(a0);
@@ -130,7 +130,7 @@ namespace vectorlib {
       template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static typename sse< v128< U > >::vector_t
-      set1( int a0) {
+      set1( uint16_t a0) {
          TALLY_CREATE_SIMD
          
          return _mm_set1_epi16(a0);
@@ -162,7 +162,7 @@ namespace vectorlib {
       template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static typename sse< v128< U > >::vector_t
-      set1( int a0) {
+      set1( uint8_t a0) {
          TALLY_CREATE_SIMD
          
          return _mm_set1_epi8(a0);

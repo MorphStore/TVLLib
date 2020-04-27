@@ -52,7 +52,7 @@ create_simd += 1;
       template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static typename avx512< v512< U > >::vector_t
-      set1( int a0) {
+      set1( uint64_t a0) {
 #if tally
 create_simd += 1;
 #endif
@@ -90,7 +90,7 @@ create_simd += 1;
       template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static typename avx512< v512< U > >::vector_t
-      set1( int a0) {
+      set1( uint32_t a0) {
 #if tally
 create_simd += 1;
 #endif
@@ -131,7 +131,7 @@ create_simd += 1;
       template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static typename avx512< v512< U > >::vector_t
-      set1( int a0) {
+      set1( uint16_t a0) {
 #if tally
 create_simd += 1;
 #endif
@@ -184,7 +184,7 @@ create_simd += 1;
       template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static typename avx512< v512< U > >::vector_t
-      set1( int a0) {
+      set1( uint8_t a0) {
 #if tally
 create_simd += 1;
 #endif
@@ -210,7 +210,7 @@ create_simd += 1;
       template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static typename avx512< v256< U > >::vector_t
-      set1( int a0) {
+      set1( uint64_t a0) {
 #if tally
 create_simd += 1;
 #endif
@@ -235,7 +235,7 @@ create_simd += 1;
       template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static typename avx512< v128< U > >::vector_t
-      set1( int a0) {
+      set1( uint64_t a0) {
 #if tally
 create_simd += 1;
 #endif
