@@ -328,10 +328,10 @@ io_load_ran_simd += 1;
          __m512i p_vec_3 = _mm512_srli_epi32(_mm512_slli_epi32(p_vec, 16),24);
          __m512i p_vec_4 = _mm512_srli_epi32(_mm512_slli_epi32(p_vec, 24),24);
 
-         __m512i d_vec_1 = _mm512_i32gather_epi32(reinterpret_cast<const int *> (p_DataPtr), p_vec_1, 1);
-         __m512i d_vec_2 = _mm512_i32gather_epi32(reinterpret_cast<const int *> (p_DataPtr), p_vec_2, 1);
-         __m512i d_vec_3 = _mm512_i32gather_epi32(reinterpret_cast<const int *> (p_DataPtr), p_vec_3, 1);
-         __m512i d_vec_4 = _mm512_i32gather_epi32(reinterpret_cast<const int *> (p_DataPtr), p_vec_4, 1);
+         __m512i d_vec_1 = _mm512_i32gather_epi32(p_vec_1, reinterpret_cast<const int *> (p_DataPtr), 1);
+         __m512i d_vec_2 = _mm512_i32gather_epi32(p_vec_2, reinterpret_cast<const int *> (p_DataPtr), 1);
+         __m512i d_vec_3 = _mm512_i32gather_epi32(p_vec_3, reinterpret_cast<const int *> (p_DataPtr), 1);
+         __m512i d_vec_4 = _mm512_i32gather_epi32(p_vec_4, reinterpret_cast<const int *> (p_DataPtr), 1);
 
          return
          _mm512_or_si512(
