@@ -32,5 +32,19 @@ namespace vectorlib {
       return logic<VectorExtension, Granularity>::bitwise_or( p_In1, p_In2 );
    }
 
+   template<class VectorExtension,  int Granularity = VectorExtension::vector_helper_t::size_bit::value>
+   MSV_CXX_ATTRIBUTE_FORCE_INLINE
+   typename VectorExtension::vector_t
+   bitwise_xor(typename VectorExtension::vector_t const & p_In1, typename VectorExtension::vector_t const & p_In2){
+      return logic<VectorExtension, Granularity>::bitwise_xor( p_In1, p_In2 );
+   }
+
+   template<class VectorExtension,  int Granularity = VectorExtension::vector_helper_t::size_bit::value>
+   MSV_CXX_ATTRIBUTE_FORCE_INLINE
+   typename VectorExtension::vector_t
+   bitwise_andnot(typename VectorExtension::vector_t const & p_In1, typename VectorExtension::vector_t const & p_In2){
+      return logic<VectorExtension, Granularity>::bitwise_andnot( p_In1, p_In2 );
+   }
+
 }
 #endif //MORPHSTORE_LOGIC_H

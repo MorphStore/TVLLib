@@ -30,6 +30,22 @@ namespace vectorlib {
          TALLY_LOGIC_SIMD
          return _mm_or_si128( p_In1, p_In2 );
       }
+
+      MSV_CXX_ATTRIBUTE_FORCE_INLINE
+      static
+      typename sse<v128<T>>::vector_t
+      bitwise_xor( typename sse<v128<T>>::vector_t const & p_In1, typename sse<v128<T>>::vector_t const & p_In2) {
+         TALLY_LOGIC_SIMD
+         return _mm_xor_si128( p_In1, p_In2 );
+      }
+
+      MSV_CXX_ATTRIBUTE_FORCE_INLINE
+      static
+      typename sse<v128<T>>::vector_t
+      bitwise_andnot( typename sse<v128<T>>::vector_t const & p_In1, typename sse<v128<T>>::vector_t const & p_In2) {
+         TALLY_LOGIC_SIMD
+         return _mm_andnot_si128( p_In1, p_In2 );
+      }
    };
 
 
