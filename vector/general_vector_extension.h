@@ -8,6 +8,10 @@
 #ifndef MORPHSTORE_VECTOR_GENERAL_VECTOR_EXTENSION_H
 #define MORPHSTORE_VECTOR_GENERAL_VECTOR_EXTENSION_H
 
+#ifdef __ARM_FEATURE_SVE
+#include <arm_sve.h>
+#endif /* __ARM_FEATURE_SVE */
+
 #include <cstdint>
 #include <type_traits>
 #include <cstddef>
@@ -53,6 +57,49 @@ namespace vectorlib {
    using v256 = vector_view<256, T>;
    template<typename T>
    using v512 = vector_view<512, T>;
+
+    template<typename T, int KEY>
+   struct integral_value {
+      static_assert(std::is_integral<T>::value);
+      using type = T;
+      static type value;
+   };
+   //pre initialisation of the static mebers of struct integral_value
+   template<typename T, int KEY>
+   T integral_value<T, KEY>::value = 0;
+
+   //bit width of ext_vector/sve_vector is hard coded to 2048 bit 
+   //   -> workarount to enable usage of  size_bit ... in constant context
+   template<uint16_t BitWidth, typename T>
+   struct ext_vector_view {
+      using base_t = T;
+      using granularity = std::integral_constant<size_t, sizeof(T) << 3>;
+
+      using size_bit      = std::integral_constant<uint16_t, BitWidth>;
+      using size_byte     = std::integral_constant<size_t, (BitWidth >> 3)>;
+      using alignment     = std::integral_constant<size_t, size_byte::value>;
+      using element_count = std::integral_constant<size_t, size_byte::value/sizeof(T)>;
+   
+      ext_vector_view() {
+         #ifdef __ARM_FEATURE_SVE
+         //create uninitalized vector
+         svuint64_t tmp = svundef_u64();
+         //get the number of 64-bit elements per vector
+         int vector_element_count = svlen(tmp);
+	     //init the static mambers
+         /*size_bit::value      = 64 * vector_element_count;
+         size_byte::value     = (size_bit::value >> 3);
+         alignment::value     = size_byte::value;
+         element_count::value = size_byte::value / sizeof(T);*/
+         #else
+         //@todo do some assert
+         #endif /* __ARM_FEATURE_SVE */
+         
+      }
+   };
+   
+   template<typename T>
+   using extv = ext_vector_view<2048, T>;
 
 }
 
