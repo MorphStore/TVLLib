@@ -57,6 +57,9 @@ namespace vectorlib {
 #ifdef AVX512
     MAKE_VECTOR_EXTENSION_NAME(avx512<v512<uint64_t>>)
 #endif
+#ifdef SVE
+    MAKE_VECTOR_EXTENSION_NAME(sve<extv<uint64_t>>)
+#endif
             
 }
 
