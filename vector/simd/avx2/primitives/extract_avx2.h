@@ -145,6 +145,28 @@ namespace vectorlib {
       }
    };
 
+   template<>
+   struct expandOrCompact<avx2<v256<uint64_t>>, 16, 32> {
+      MSV_CXX_ATTRIBUTE_FORCE_INLINE
+      static 
+      typename avx2<v256<uint32_t>>::vector_t
+      apply(
+         typename avx2<v256<uint16_t>>::vector_t const & p_vec,
+         int idx
+      ){
+        switch (idx){
+          case 1: return _mm256_shuffle_epi8(_mm256_permutevar8x32_epi32(p_vec, _mm256_set_epi32(7,6,3,2,3,2,1,0)), _mm256_set_epi8(-1,-1,23,22,-1,-1,21,20,-1,-1,19,18,
+                -1,-1,17,16,-1,-1,7,6,-1,-1,5,4,-1,-1,3,2,-1,-1,1,0)); break;
+          case 2: return _mm256_shuffle_epi8(_mm256_permutevar8x32_epi32(p_vec, _mm256_set_epi32(7,6,7,6,3,2,5,4)), _mm256_set_epi8(-1,-1,23,22,-1,-1,21,20,-1,-1,19,18,
+                -1,-1,17,16,-1,-1,7,6,-1,-1,5,4,-1,-1,3,2,-1,-1,1,0));
+          default: return _mm256_shuffle_epi8(_mm256_permutevar8x32_epi32(p_vec, _mm256_set_epi32(7,6,3,2,3,2,1,0)), _mm256_set_epi8(-1,-1,23,22,-1,-1,21,20,-1,-1,19,18,
+                -1,-1,17,16,-1,-1,7,6,-1,-1,5,4,-1,-1,3,2,-1,-1,1,0)); break;          
+        }
+
+      }
+   };
+
+
 }
 
 #endif /* MORPHSTORE_VECTOR_SIMD_AVX2_PRIMITIVES_EXTRACT_AVX2_H */

@@ -36,6 +36,18 @@ namespace vectorlib{
    extract_value(typename VectorExtension::vector_t a, int b){
       return extract<VectorExtension, IOGranularity>::extract_value(a, b);
    }
+
+   template<class VectorExtension, int InputGranularity, int OutputGranularity>
+   struct expandOrCompact {
+      MSV_CXX_ATTRIBUTE_FORCE_INLINE
+      static 
+      typename VectorExtension::vector_t
+      apply(
+        typename VectorExtension::vector_t const & p_vec,
+        int idx
+        ) = delete;
+   };
+
 }
 
 #endif /* EXTRACT_H */

@@ -112,5 +112,81 @@ namespace vectorlib {
       }
    };
 
+   template<>
+   struct expandOrCompact<sse<v128<uint64_t>>, 8, 16> {
+      MSV_CXX_ATTRIBUTE_FORCE_INLINE
+      static 
+      typename sse<v128<uint16_t>>::vector_t
+      apply(
+         typename sse<v128<uint8_t>>::vector_t const & p_vec,
+         int idx
+      ){
+        switch (idx){
+          case 1: return _mm_shuffle_epi8(p_vec, _mm_set_epi8(-1,7,-1,6,-1,5,-1,4,-1,3,-1,2,-1,1,-1,0)); break;
+          case 2: return _mm_shuffle_epi8(p_vec, _mm_set_epi8(-1,15,-1,14,-1,13,-1,12,-1,11,-1,10,-1,9,-1,8));break;
+          default: return _mm_shuffle_epi8(p_vec, _mm_set_epi8(-1,7,-1,6,-1,5,-1,4,-1,3,-1,2,-1,1,-1,0)); break;
+        }
+
+      }
+   };
+
+   template<>
+   struct expandOrCompact<sse<v128<uint64_t>>, 8, 32> {
+      MSV_CXX_ATTRIBUTE_FORCE_INLINE
+      static 
+      typename sse<v128<uint32_t>>::vector_t
+      apply(
+         typename sse<v128<uint8_t>>::vector_t const & p_vec,
+         int idx
+      ){
+        switch (idx){
+          case 1: return _mm_shuffle_epi8(p_vec, _mm_set_epi8(-1,-1,-1,3,-1,-1,-1,2,-1,-1,-1,1,-1,-1,-1,0)); break;
+          case 2: return _mm_shuffle_epi8(p_vec, _mm_set_epi8(-1,-1,-1,7,-1,-1,-1,6,-1,-1,-1,5,-1,-1,-1,4)); break;
+          case 3: return _mm_shuffle_epi8(p_vec, _mm_set_epi8(-1,-1,-1,11,-1,-1,-1,10,-1,-1,-1,9,-1,-1,-1,8)); break;
+          case 4: return _mm_shuffle_epi8(p_vec, _mm_set_epi8(-1,-1,-1,15,-1,-1,-1,14,-1,-1,-1,13,-1,-1,-1,12)); break;
+          default: return _mm_shuffle_epi8(p_vec, _mm_set_epi8(-1,-1,-1,3,-1,-1,-1,2,-1,-1,-1,1,-1,-1,-1,0)); break;
+        }
+
+      }
+   };
+
+   template<>
+   struct expandOrCompact<sse<v128<uint64_t>>, 16, 32> {
+      MSV_CXX_ATTRIBUTE_FORCE_INLINE
+      static 
+      typename sse<v128<uint32_t>>::vector_t
+      apply(
+         typename sse<v128<uint16_t>>::vector_t const & p_vec,
+         int idx
+      ){
+        switch (idx){
+          case 1: return _mm_shuffle_epi8(p_vec, _mm_set_epi8(-1,-1,7,6,-1,-1,5,4,-1,-1,3,2,-1,-1,1,0)); break;
+          case 2: return _mm_shuffle_epi8(p_vec, _mm_set_epi8(-1,-1,15,14,-1,-1,13,12,-1,-1,11,10,-1,-1,9,8)); break;
+          default: return _mm_shuffle_epi8(p_vec, _mm_set_epi8(-1,-1,7,6,-1,-1,5,4,-1,-1,3,2,-1,-1,1,0)); break;
+        }
+
+      }
+   };
+
+   template<>
+   struct expandOrCompact<sse<v128<uint64_t>>, 32, 8> {
+      MSV_CXX_ATTRIBUTE_FORCE_INLINE
+      static 
+      typename sse<v128<uint8_t>>::vector_t
+      apply(
+         typename sse<v128<uint32_t>>::vector_t const & p_vec,
+         int idx
+      ){
+        switch (idx){
+          case 1: return _mm_shuffle_epi8(p_vec, _mm_set_epi8(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,12,8,4,0)); break;
+          case 2: return _mm_shuffle_epi8(p_vec, _mm_set_epi8(-1,-1,-1,-1,-1,-1,-1,-1,12,8,4,0,-1,-1,-1,-1)); break;
+          case 3: return _mm_shuffle_epi8(p_vec, _mm_set_epi8(-1,-1,-1,-1,12,8,4,0,-1,-1,-1,-1,-1,-1,-1,-1)); break;
+          case 4: return _mm_shuffle_epi8(p_vec, _mm_set_epi8(12,8,4,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1)); break;
+          default: return _mm_shuffle_epi8(p_vec, _mm_set_epi8(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,12,8,4,0)); break;
+        }
+
+      }
+   };
+
 }
 #endif /* MORPHSTORE_VECTOR_SIMD_SSE_PRIMITIVES_EXTRACT_SSE_H */
