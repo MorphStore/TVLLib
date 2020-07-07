@@ -42,3 +42,9 @@ g++ -DNEON -mcpu=cortex-a53 -mfpu=neon -flax-vector-conversions aggregate.cpp
 /usr/bin/aarch64-linux-gnu-g++ -DNEON -mcpu=cortex-a53 -mfpu=neon -flax-vector-conversions aggregate.cpp 
 
 **Note** This is where the compiler was installed in Ubuntu, it might be somewhere else on your system.
+
+### ARM with SVE (tested on Cortex A53 with ARM Instruction Emulator)
+
+g++ -DSVE -march=armv8-a+sve aggregate.cpp -std=c++17 -O1
+
+**Note** To Compile SVE-Instructions it is necessary to use GCC 10 or later. Compiling with the Flag '-O0' leads to leads to some errors, caused by the Linker. This is a kown issue of the Compiler, but was not patched, yet. To avoid these errors it is sufficient ot compile with at least '-O1' (or higher).

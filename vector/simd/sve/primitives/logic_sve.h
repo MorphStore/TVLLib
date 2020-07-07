@@ -7,13 +7,12 @@
 
 #ifndef MORPHSTORE_VECTOR_SIMD_SVE_PRIMITIVES_LOGIC_SVE_H
 #define MORPHSTORE_VECTOR_SIMD_SVE_PRIMITIVES_LOGIC_SVE_H
-#include <core/utils/preprocessor.h>
-#include <core/memory/mm_glob.h>
-#include <vector/simd/sve/extension_sve.h>
-#include <vector/primitives/logic.h>
+
+#include "../../../preprocessor.h"
+#include "../extension_sve.h"
+#include "../../../primitives/logic.h"
+
 #include "../predicate_build_sve.h"
-
-
 
 namespace vectorlib {
 

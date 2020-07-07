@@ -55,6 +55,16 @@
 #  include "simd/neon/primitives/manipulate_neon.h"
 #endif
 
+#ifdef SVE
+#  include "simd/sve/primitives/calc_sve.h"
+#  include "simd/sve/primitives/compare_sve.h"
+#  include "simd/sve/primitives/create_sve.h"
+#  include "simd/sve/primitives/extract_sve.h"
+#  include "simd/sve/primitives/io_sve.h"
+#  include "simd/sve/primitives/logic_sve.h"
+#  include "simd/sve/primitives/manipulate_sve.h"
+#endif
+
 #include "scalar/primitives/calc_scalar.h"
 #include "scalar/primitives/compare_scalar.h"
 #include "scalar/primitives/create_scalar.h"

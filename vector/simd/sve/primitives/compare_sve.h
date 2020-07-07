@@ -8,11 +8,10 @@
 #ifndef MORPHSTORE_VECTOR_SIMD_SVE_PRIMITIVES_COMPARE_SVE_H
 #define MORPHSTORE_VECTOR_SIMD_SVE_PRIMITIVES_COMPARE_SVE_H
 
+#include "../../../preprocessor.h"
+#include "../extension_sve.h"
+#include "../../../primitives/compare.h"
 
-#include <core/utils/preprocessor.h>
-#include <core/memory/mm_glob.h>
-#include <vector/simd/sve/extension_sve.h>
-#include <vector/primitives/compare.h>
 #include "../predicate_build_sve.h"
 
 #include <functional>
@@ -27,7 +26,6 @@ namespace vectorlib{
          typename sve<extv<T>>::vector_t const & p_vec1,
          typename sve<extv<T>>::vector_t const & p_vec2
       ) {
-         trace( "[VECTOR] - Compare integer values from two registers: == ? (SVE)" );
          return svcmpeq(svptrue_select<T>::get(), p_vec1, p_vec2);
       }
    };
@@ -40,7 +38,6 @@ namespace vectorlib{
          typename sve<extv<T>>::vector_t const & p_vec1,
          typename sve<extv<T>>::vector_t const & p_vec2
       ) {
-         trace( "[VECTOR] - Compare integer values from two registers: < ? (SVE)" );
          return svcmplt(svptrue_select<T>::get(), p_vec1, p_vec2);
       }
    };
@@ -53,7 +50,6 @@ namespace vectorlib{
          typename sve<extv<T>>::vector_t const & p_vec1,
          typename sve<extv<T>>::vector_t const & p_vec2
       ) {
-         trace( "[VECTOR] - Compare integer values from two registers: <= ? (SVE)" );
          return svcmple(svptrue_select<T>::get(), p_vec1, p_vec2);
       }
    };
@@ -66,7 +62,6 @@ namespace vectorlib{
          typename sve<extv<T>>::vector_t const & p_vec1,
          typename sve<extv<T>>::vector_t const & p_vec2
       ) {
-         trace( "[VECTOR] - Compare integer values from two registers: > ? (SVE)" );
          return svcmpgt(svptrue_select<T>::get(), p_vec1, p_vec2);
       }
    };
@@ -79,7 +74,6 @@ namespace vectorlib{
          typename sve<extv<T>>::vector_t const & p_vec1,
          typename sve<extv<T>>::vector_t const & p_vec2
       ) {
-         trace( "[VECTOR] - Compare integer values from two registers: >= ? (SVE)" );
          return svcmpge(svptrue_select<T>::get(), p_vec1, p_vec2);
       }
    };
@@ -95,7 +89,6 @@ namespace vectorlib{
       apply(
          typename sve<extv<T>>::mask_t const & p_mask
       ) {
-         trace( "[VECTOR] - Count matches in a 64 bit comparison mask (SVE)" );
          return svcntp_b64(svptrue_select<T>::get(), p_mask);
       }
       
@@ -107,7 +100,6 @@ namespace vectorlib{
       apply(
          typename sve<extv<T>>::mask_t const & p_mask
       ) {
-         trace( "[VECTOR] - Count matches in a 32 bit comparison mask (SVE)" );
          return svcntp_b32(svptrue_select<T>::get(), p_mask);
       }
 
@@ -119,7 +111,6 @@ namespace vectorlib{
       apply(
          typename sve<extv<T>>::mask_t const & p_mask
       ) {
-         trace( "[VECTOR] - Count matches in a 16 bit comparison mask (SVE)" );
          return svcntp_b16(svptrue_select<T>::get(), p_mask);
       }
 
@@ -131,7 +122,6 @@ namespace vectorlib{
       apply(
          typename sve<extv<T>>::mask_t const & p_mask
       ) {
-         trace( "[VECTOR] - Count matches in a  8 bit comparison mask (SVE)" );
          return svcntp_b8(svptrue_select<T>::get(), p_mask);
       }
    };

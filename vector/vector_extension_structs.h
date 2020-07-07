@@ -27,14 +27,14 @@
 #endif
 
 #ifdef SVE
-#   include <vector/simd/sve/extension_sve.h>
+#   include "simd/sve/extension_sve.h"
 #endif
 
 #include "scalar/extension_scalar.h"
 
 namespace vectorlib{
 
-#ifdef SVE//init element_count, size_bit, size_byte, vector_alignment, vector_size if working on SVE vectors
+
 #define IMPORT_VECTOR_BOILER_PLATE(VectorExtension) \
    /*vectorlib::extv<typename VectorExtension::vector_helper_t::base_t> ext_vector_view_instance();*/\
    \
@@ -48,22 +48,6 @@ namespace vectorlib{
    using vector_size_byte     MSV_CXX_ATTRIBUTE_PPUNUSED = typename VectorExtension::vector_helper_t::size_byte; \
    using vector_alignment     MSV_CXX_ATTRIBUTE_PPUNUSED = typename VectorExtension::vector_helper_t::alignment; \
    using vector_size          MSV_CXX_ATTRIBUTE_PPUNUSED = typename VectorExtension::vector_helper_t::size_byte;
-
-#else
-#define IMPORT_VECTOR_BOILER_PLATE(VectorExtension) \
-   using base_t MSV_CXX_ATTRIBUTE_PPUNUSED = typename VectorExtension::vector_helper_t::base_t; \
-   using vector_t MSV_CXX_ATTRIBUTE_PPUNUSED = typename VectorExtension::vector_t; \
-   using vector_mask_t MSV_CXX_ATTRIBUTE_PPUNUSED = typename VectorExtension::mask_t; \
-   using vector_base_t_granularity MSV_CXX_ATTRIBUTE_PPUNUSED = typename VectorExtension::vector_helper_t::granularity; \
-   \
-   using vector_element_count MSV_CXX_ATTRIBUTE_PPUNUSED = typename VectorExtension::vector_helper_t::element_count; \
-   using vector_size_bit      MSV_CXX_ATTRIBUTE_PPUNUSED = typename VectorExtension::vector_helper_t::size_bit; \
-   using vector_size_byte     MSV_CXX_ATTRIBUTE_PPUNUSED = typename VectorExtension::vector_helper_t::size_byte; \
-   using vector_alignment     MSV_CXX_ATTRIBUTE_PPUNUSED = typename VectorExtension::vector_helper_t::alignment; \
-   using vector_size          MSV_CXX_ATTRIBUTE_PPUNUSED = typename VectorExtension::vector_helper_t::size_byte;   
-   
-#endif //SVE
-
 
 #define IMPORT_VECTOR_BOILER_PLATE_PREFIX(VectorExtension, Prefix) \
    using Prefix##vector_element_count MSV_CXX_ATTRIBUTE_PPUNUSED = typename VectorExtension::vector_helper_t::element_count; \

@@ -1,6 +1,6 @@
 
-#include "vector_extension_structs.h"
-#include "vector_primitives.h"
+#include "vector/vector_extension_structs.h"
+#include "vector/vector_primitives.h"
 #include "benchmark.h"
 
 #include <cstdio>
@@ -13,9 +13,10 @@ static void aggregate( void * array, int size, int * out){
 
   using namespace vectorlib;
   
-  using VectorExtension = scalar<v16<uint16_t>>;
+  //using VectorExtension = scalar<v16<uint16_t>>;
   //using VectorExtension = sse<v128<uint64_t>>;
   //using VectorExtension = avx2<v256<uint32_t>>;
+  using VectorExtension = sve<extv<uint64_t>>;
   IMPORT_VECTOR_BOILER_PLATE(VectorExtension)
   
   size_t const vectorCount = size / vector_element_count::value;
@@ -46,9 +47,10 @@ static void aggregate( void * array, int size, int * out){
 int main (void){
   using namespace vectorlib;
   
-  using VectorExtension = scalar<v16<uint16_t>>;
+  //using VectorExtension = scalar<v16<uint16_t>>;
   //using VectorExtension = sse<v128<uint64_t>>;
   //using VectorExtension = avx2<v256<uint32_t>>;
+  using VectorExtension = sve<extv<uint64_t>>;
   IMPORT_VECTOR_BOILER_PLATE(VectorExtension)
 
    
