@@ -31,7 +31,7 @@ namespace vectorlib {
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static void
       store( U * p_DataPtr, typename sve< extv< U > >::vector_t p_vec ) {
-         svst1(svptrue_select<T>::get(), p_vec, p_DataPtr);
+         svst1(svptrue_select<T>::get(), p_DataPtr, p_vec);
          return;
       }
    };
@@ -49,7 +49,7 @@ namespace vectorlib {
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static void
       store( U * p_DataPtr, typename sve< extv< U > >::vector_t p_vec ) {
-         svst1(svptrue_select<T>::get(), p_vec, p_DataPtr);
+         svst1(svptrue_select<T>::get(), p_DataPtr, p_vec);
          return;
       }
    };
@@ -94,7 +94,7 @@ namespace vectorlib {
       static void
       store( U * p_DataPtr, typename sve< extv< U > >::vector_t p_vec ) {
          sve<extv<uint8_t>>::vector_t re_vec = _reinterpret<U, uint8_t>(p_vec);
-         svst1(svptrue_select<T>::get(), p_vec, reinterpret_cast<uint8_t *>(p_DataPtr));
+         svst1(svptrue_select<T>::get(), reinterpret_cast<uint8_t *>(p_DataPtr), p_vec);
          return;
       }
 
