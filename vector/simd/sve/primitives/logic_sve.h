@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   logic_sve.h
  * Author: André Berthold
  *
@@ -30,7 +30,7 @@ namespace vectorlib {
       static
       typename sve<extv<T>>::mask_t
       bitwise_and( typename sve<extv<T>>::mask_t const & p_In1, typename sve<extv<T>>::mask_t const & p_In2) {
-         return svorr_b_z( svptrue_select<T>::get(), p_In1, p_In2 );
+         return svand_b_z( svptrue_select<T>::get(), p_In1, p_In2 );
       }
 
       MSV_CXX_ATTRIBUTE_FORCE_INLINE

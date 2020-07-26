@@ -17,7 +17,7 @@
 #include <functional>
 
 namespace vectorlib{
-    template<typename T>
+    /*template<typename T>
     struct manipulate<sve<extv<T>>, 0> {
 
         template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
@@ -34,17 +34,16 @@ namespace vectorlib{
             return res_vec;
 
         }
-    };
+    };*/
 
-    template<>
-    struct manipulate<sve<extv<uint64_t>>, 0> {
-        template< typename U = uint64_t, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
+    template<typename T>
+    struct manipulate<sve<extv<T>>, 0> {
+        template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
         MSV_CXX_ATTRIBUTE_FORCE_INLINE
         static typename sve<extv< U > >::vector_t
         rotate( typename sve<extv< U > >::vector_t p_vec ) {
-            auto last_ele = svlastb(svptrue_b64(), p_vec);
-	    typename sve<extv< U > >::vector_t res_vec =
-                svinsr(p_vec, last_ele);
+            auto new_last = svlastb(svpfalse(), p_vec);
+	    typename sve<extv< U > >::vector_t res_vec = svinsr(p_vec, new_last);
             return res_vec;
 
         }

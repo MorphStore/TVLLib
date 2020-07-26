@@ -50,7 +50,7 @@ namespace vectorlib {
       template< typename U = T, typename std::enable_if< std::is_same<float, U>::value, int >::type = 0 >
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static typename sve< extv< U > >::vector_t
-      set1( float a0) {
+      set1( double a0) {
          return svdup_f64(a0);
       }
    };
@@ -88,7 +88,7 @@ namespace vectorlib {
       template< typename U = T, typename std::enable_if< std::is_same<double, U>::value, int >::type = 0 >
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static typename sve< extv< U > >::vector_t
-      set1( double a0) {
+      set1( float a0) {
          return svdup_f32(a0);
       }
    };
