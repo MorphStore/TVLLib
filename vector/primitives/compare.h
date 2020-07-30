@@ -87,7 +87,15 @@ namespace vectorlib{
       ) = delete;
    };
 
-
+   template<class VectorExtension>
+   struct conflict_detection {
+      MSV_CXX_ATTRIBUTE_FORCE_INLINE
+      static
+      typename VectorExtension::vector_t
+      apply(
+         typename VectorExtension::vector_t const & p_vec
+      ) = delete;
+   };
 //   template<class VectorExtension, int IOGranularity>
 //   struct compare;
 //

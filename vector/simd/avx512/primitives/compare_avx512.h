@@ -663,6 +663,43 @@ calc_unary_simd += 1;
          return _mm_popcnt_u64(p_mask);
       }
    };
+  
+  //not tested 
+  template<typename T>
+   struct conflict_detection<avx512<v512<uint64_t>>> {
+      template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
+      MSV_CXX_ATTRIBUTE_FORCE_INLINE
+      static typename avx512< v512< U > >::vector_t
+      apply(
+         typename avx512<v512<U>>::vector_t const & p_vec
+      ) {
+         return _mm512_conflict_epi64(p_vec);
+      }
+   };
+   
+     template<typename T>
+   struct conflict_detection<avx512<v256<uint64_t>>> {
+      template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
+      MSV_CXX_ATTRIBUTE_FORCE_INLINE
+      static typename avx512< v256< U > >::vector_t
+      apply(
+         typename avx512<v256<U>>::vector_t const & p_vec
+      ) {
+         return _mm256_conflict_epi64(p_vec);
+      }
+   };
+   
+     template<typename T>
+   struct conflict_detection<avx512<v128<uint64_t>>> {
+      template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
+      MSV_CXX_ATTRIBUTE_FORCE_INLINE
+      static typename avx512< v128< U > >::vector_t
+      apply(
+         typename avx512<v128<U>>::vector_t const & p_vec
+      ) {
+         return _mm_conflict_epi64(p_vec);
+      }
+   };
 
  }
 
