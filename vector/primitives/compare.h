@@ -87,7 +87,7 @@ namespace vectorlib{
       ) = delete;
    };
 
-   template<class VectorExtension>
+   template<class VectorExtension, int IOGranularity>
    struct conflict_detection {
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static

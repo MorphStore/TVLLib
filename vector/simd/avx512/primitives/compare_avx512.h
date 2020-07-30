@@ -665,8 +665,9 @@ calc_unary_simd += 1;
    };
   
   //not tested 
-  template<typename T>
-   struct conflict_detection<avx512<v512<uint64_t>>> {
+  //TODO: add more granularities, currently only works for 64 bit
+  template<typename T, int IOGranularity>
+   struct conflict_detection<avx512<v512<T>>,64> {
       template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static typename avx512< v512< U > >::vector_t
@@ -677,8 +678,8 @@ calc_unary_simd += 1;
       }
    };
    
-     template<typename T>
-   struct conflict_detection<avx512<v256<uint64_t>>> {
+     template<typename T, int IOGranularity>
+   struct conflict_detection<avx512<v256<T>>,64> {
       template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static typename avx512< v256< U > >::vector_t
@@ -689,8 +690,8 @@ calc_unary_simd += 1;
       }
    };
    
-     template<typename T>
-   struct conflict_detection<avx512<v128<uint64_t>>> {
+     template<typename T, int IOGranularity>
+   struct conflict_detection<avx512<v128<T>>,64> {
       template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static typename avx512< v128< U > >::vector_t
