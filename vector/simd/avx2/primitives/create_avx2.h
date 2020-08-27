@@ -29,7 +29,7 @@ namespace vectorlib {
       template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static typename avx2< v256< U > >::vector_t
-      set( int a3, int a2, int a1, int a0) {
+      set( uint64_t a3, uint64_t a2, uint64_t a1, uint64_t a0) {
          TALLY_CREATE_SIMD
          
          return _mm256_set_epi64x(a3, a2, a1, a0);
