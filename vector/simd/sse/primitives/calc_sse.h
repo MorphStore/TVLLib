@@ -77,6 +77,8 @@ namespace vectorlib{
       ){
          TALLY_CALC_UNARY_SIMD
          
+#if 0
+         // This does not work for large inputs.
          return
             _mm_extract_epi64(
                _mm_castpd_si128(
@@ -87,6 +89,10 @@ namespace vectorlib{
                ),
                0
             );
+#else
+         // This does work for all inputs.
+         return _mm_extract_epi64(p_vec1, 0) + _mm_extract_epi64(p_vec1, 1);
+#endif
       }
    };
    template<>

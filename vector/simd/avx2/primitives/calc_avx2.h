@@ -76,6 +76,8 @@ namespace vectorlib{
       ){
          TALLY_CALC_UNARY_SIMD
          
+#if 0
+         // This does not work for large inputs.
          __m256i tmp =
             _mm256_castpd_si256(
                _mm256_hadd_pd(
@@ -84,6 +86,13 @@ namespace vectorlib{
                )
             );
          return _mm256_extract_epi64(tmp,0)+_mm256_extract_epi64(tmp,2);
+#else
+         // This does work for all inputs.
+         return _mm256_extract_epi64(p_vec1, 0) + \
+                 _mm256_extract_epi64(p_vec1, 1) + \
+                 _mm256_extract_epi64(p_vec1, 2) + \
+                 _mm256_extract_epi64(p_vec1, 3);
+#endif
       }
    };
    template<>
