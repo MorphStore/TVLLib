@@ -157,6 +157,21 @@ calc_unary_simd += 1;
       }
    };
    template<>
+   struct hor<avx512<v512<uint64_t>>, 64> {
+      MSV_CXX_ATTRIBUTE_FORCE_INLINE
+      static
+      typename avx512<v512<uint64_t>>::base_t
+      apply(
+         typename avx512<v512<uint64_t>>::vector_t const & p_vec1
+      ){
+#if tally
+calc_unary_simd += 1;
+#endif
+         
+         return _mm512_reduce_or_epi64(p_vec1);
+      }
+   };
+   template<>
    struct mul<avx512<v512<uint64_t>>, 64> {
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static

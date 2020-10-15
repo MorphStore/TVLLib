@@ -96,6 +96,22 @@ namespace vectorlib{
       }
    };
    template<>
+   struct hor<avx2<v256<uint64_t>>, 64> {
+      MSV_CXX_ATTRIBUTE_FORCE_INLINE
+      static
+      typename avx2<v256<uint64_t>>::base_t
+      apply(
+         typename avx2<v256<uint64_t>>::vector_t const & p_vec1
+      ){
+         TALLY_CALC_UNARY_SIMD
+         
+         return  _mm256_extract_epi64(p_vec1, 0) |
+                 _mm256_extract_epi64(p_vec1, 1) |
+                 _mm256_extract_epi64(p_vec1, 2) |
+                 _mm256_extract_epi64(p_vec1, 3);
+      }
+   };
+   template<>
    struct mul<avx2<v256<uint64_t>>, 64> {
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static

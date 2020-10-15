@@ -63,6 +63,15 @@ namespace vectorlib{
       ) = delete;
    };
    template<class VectorExtension, int Granularity = VectorExtension::vector_helper_t::granularity::value>
+   struct hor {
+      MSV_CXX_ATTRIBUTE_FORCE_INLINE
+      static
+      typename VectorExtension::base_t
+      apply(
+         typename VectorExtension::vector_t const & p_vec1
+      ) = delete;
+   };
+   template<class VectorExtension, int Granularity = VectorExtension::vector_helper_t::granularity::value>
    struct mul {
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static
