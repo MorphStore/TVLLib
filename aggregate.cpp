@@ -1,6 +1,6 @@
 
-#include "vector_extension_structs.h"
-#include "vector_primitives.h"
+#include "vector/vector_extension_structs.h"
+#include "vector/vector_primitives.h"
 #include "benchmark.h"
 
 #include <cstdio>
