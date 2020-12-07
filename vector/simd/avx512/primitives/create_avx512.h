@@ -30,7 +30,7 @@ namespace vectorlib {
       template< typename U = T, typename std::enable_if< std::is_integral< U >::value, int >::type = 0 >
       MSV_CXX_ATTRIBUTE_FORCE_INLINE
       static typename avx512< v512< U > >::vector_t
-      set( int a7, int a6, int a5, int a4, int a3, int a2, int a1, int a0) {
+      set( uint64_t a7, uint64_t a6, uint64_t a5, uint64_t a4, uint64_t a3, uint64_t a2, uint64_t a1, uint64_t a0) {
 #if tally
 create_simd += 1;
 #endif

@@ -76,6 +76,8 @@ namespace vectorlib{
       ){
          TALLY_CALC_UNARY_SIMD
          
+#if 0
+         // This does not work for large inputs.
          __m256i tmp =
             _mm256_castpd_si256(
                _mm256_hadd_pd(
@@ -84,6 +86,29 @@ namespace vectorlib{
                )
             );
          return _mm256_extract_epi64(tmp,0)+_mm256_extract_epi64(tmp,2);
+#else
+         // This does work for all inputs.
+         return _mm256_extract_epi64(p_vec1, 0) + \
+                 _mm256_extract_epi64(p_vec1, 1) + \
+                 _mm256_extract_epi64(p_vec1, 2) + \
+                 _mm256_extract_epi64(p_vec1, 3);
+#endif
+      }
+   };
+   template<>
+   struct hor<avx2<v256<uint64_t>>, 64> {
+      MSV_CXX_ATTRIBUTE_FORCE_INLINE
+      static
+      typename avx2<v256<uint64_t>>::base_t
+      apply(
+         typename avx2<v256<uint64_t>>::vector_t const & p_vec1
+      ){
+         TALLY_CALC_UNARY_SIMD
+         
+         return  _mm256_extract_epi64(p_vec1, 0) |
+                 _mm256_extract_epi64(p_vec1, 1) |
+                 _mm256_extract_epi64(p_vec1, 2) |
+                 _mm256_extract_epi64(p_vec1, 3);
       }
    };
    template<>
