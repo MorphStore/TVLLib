@@ -1,7 +1,10 @@
-/*
- * Copyright (c) 2010-2011, Intel Corporation
- * Copyright (c) 2013-2014, Saarland University
- */
+/*Copyright 2020 MorphStore Team @ TU Dresden
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License
+*/
 
 #ifndef SIERRA_BENCHMARK_H
 #define SIERRA_BENCHMARK_H
@@ -14,24 +17,7 @@
 #include <chrono>
 #include <ctime>
 
-#ifdef WIN32
-#include <windows.h>
-#define rdtsc __rdtsc
-#else
 
-//This code is from the Sierra examples. It counts CPU-ticks...
-inline uint64_t rdtsc() {
-    uint32_t low, high;
-    __asm__ __volatile__ (
-        "xorl %%eax,%%eax \n    cpuid"
-        ::: "%rax", "%rbx", "%rcx", "%rdx" );
-    __asm__ __volatile__ (
-                            "rdtsc" : "=a" (low), "=d" (high));
-    return (uint64_t)high << 32 | low;
-}
-#endif
-
-//...but we want time
 inline std::chrono::time_point<std::chrono::system_clock> readtime(){
   return std::chrono::system_clock::now();
 }

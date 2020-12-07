@@ -1,33 +1,9 @@
-/*
- * File:   tally.h
- * Author: Lennart
- *
- * Created on 6. January 2020, 18:00
- */
+/*Copyright 2020 MorphStore Team @ TU Dresden
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
-/*
- * Creates a Tally of all functions calls of the 7 different primitives.
- * This infromation can later be used to create better approximations.
- *
- * Future Work?
- * 	differentiate between different simd types
- * 	work in Granularity? so 256<64>, 256<32> etc.
- *
- * Todo:
- * 	!!!	load-seq, load-ran, read-seq, read-ran
- * 	!!		calc - unary binary
- * 	Implementation for SSE
- * 	Implementation for AVX512
- * 	Implementation for Neon
- * 	Other Implementation
- * 	Better Output implementation
- * 		replace Output over iostream.
- *
- *
- *
- * WHAT IS COMPRESSSTORE?! seq or ran store? at the moment it is random write	BUT is it really.
- * WWHAT IS SHIFT_RIGHT & SHIFT_LEFT?!	unary or Binary? at hte moment: binary calc
- * 		shift_left shift_right
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License
 */
 
 #ifndef TALLY_H
