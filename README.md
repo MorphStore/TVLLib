@@ -1,3 +1,15 @@
+**Major UPDATE (18/03/2021):** 
+- New default branch called *main*
+- old default branch renamed to *old_master*
+- New folder structure
+- Interfaces finally harmonized
+- More base types supported
+- Neon support temporarily not available (we are working on bringing it back)
+
+**If you rely on the old interfaces or on the neon support, do not update using the main branch. The old sources are available in the old\_master branch**
+
+**Documentation is being prepared, stay tuned!**
+
 # Welcome to the Template Vector Library (TVL)!
 
 This is a stand-alone version of the Template Vector Library. 
