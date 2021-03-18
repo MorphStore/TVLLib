@@ -3,7 +3,7 @@
 - Old default branch renamed to *old_master*
 - New folder structure
 - Interfaces finally harmonized
-- More base types and primitives supported
+- More base types and mask-primitives supported
 - Added support for NEC SX Aurora Tsubasa
 - Neon support temporarily not available (we are working on bringing it back)
 
