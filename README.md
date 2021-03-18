@@ -1,12 +1,13 @@
 **Major UPDATE (18/03/2021):** 
 - New default branch called *main*
-- old default branch renamed to *old_master*
+- Old default branch renamed to *old_master*
 - New folder structure
 - Interfaces finally harmonized
-- More base types supported
+- More base types and primitives supported
+- Added support for NEC SX Aurora Tsubasa
 - Neon support temporarily not available (we are working on bringing it back)
 
-**If you rely on the old interfaces or on the neon support, do not update using the main branch. The old sources are available in the old\_master branch**
+**If you rely on the old interfaces or on the neon support, do not checkout the main branch. The old sources are available in the old\_master branch**
 
 **Documentation is being prepared, stay tuned!**
 
