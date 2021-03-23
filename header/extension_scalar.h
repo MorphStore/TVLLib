@@ -11,7 +11,8 @@
 #include <cstdint>
 #include <type_traits>
 
-#include "vector_extension_structs.h"
+//#include "vector_extension_structs.h"
+#include "general_vector_extension.h"
 
 namespace vectorlib {
 

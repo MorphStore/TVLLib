@@ -12,6 +12,7 @@
 #include <type_traits>
 #include <cstddef>
 #include "preprocessor.h"
+
 namespace vectorlib {
 
    template<uint16_t BitWidth, typename T>

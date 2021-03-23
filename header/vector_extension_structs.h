@@ -4,33 +4,42 @@
 
 #include "general_vector_extension.h"
 
-#  ifdef AVX512
-#    include "extension_avx512.h"
-#  endif
-
-#  ifdef AVXTWO
-#    include "extension_avx2.h"
-#  endif
-
-#  ifdef SSE
-#    include "extension_sse.h"
-#  endif
-
-# ifdef NEON
-#   include "extension_neon.h"
-# endif
-
+/// === 64 Bit ==================== ///
 # ifdef SCALAR
 # include "extension_scalar.h"
 # endif
 
+/// === 128 Bit =================== ///
+#  ifdef SSE
+#    include "extension_sse.h"
+#  endif
+# ifdef NEON
+#   include "extension_neon.h"
+# endif
+
+/// === 256 Bit =================== ///
+#  ifdef AVXTWO
+#    include "extension_sse.h"
+#    include "extension_avx2.h"
+#  endif
+
+/// === 512 Bit =================== ///
+#  ifdef AVX512
+#    include "extension_sse.h"
+#    include "extension_avx2.h"
+#    include "extension_avx512.h"
+#  endif
+
+/// === 16384 Bit // 16 kBit ====== ///
+#  ifdef TSUBASA
+#    include "extension_tsubasa.h"
+#  endif
+
+/// === 294,912 Bit // 288 kBit === ///
 #  ifdef CUDA
 #    include "extension_cuda.h"
 #  endif
 
-#  ifdef TSUBASA
-#    include "extension_tsubasa.h"
-#  endif
 
 
 namespace vectorlib{
