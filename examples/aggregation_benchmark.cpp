@@ -1,106 +1,90 @@
-
-#include <header/vector_extensions.h>
+#ifdef TSUBASA
+#include <header/extension_tsubasa.h>
+#endif
+#ifdef AVX512
+#include <header/extension_avx512.h>
+#endif
+//#include <header/extension_avx2.h>
+//#include <header/extension_scalar.h>
+#include <header/vector_extension_structs.h>
+#include <header/vector_primitives.h>
 #include "benchmark.h"
 
 #include <cstdio>
 #include <iostream>
-#include <cstdlib>
+#include <stdlib.h>
 #include <chrono>
 #include <ctime>
 
+static void aggregate( void * array, int size, int * out){
 
-template<typename VectorExtension>
-static void aggregate(void * array, int size, int * out) {
-    /// importing primitives from vectorlib (using namespace vectorlib; would be sufficient, but for clarification purpose one by one)
-    using vectorlib::set1;
-    using vectorlib::load;
-    using vectorlib::add;
-    using vectorlib::hadd;
-    
-    /// This creates convenience typedefs like base_t, vector_element_count etc.
-    IMPORT_VECTOR_BOILER_PLATE(VectorExtension)
-    
-    size_t const vectorCount = size / vector_element_count::value;
-    size_t const remainderCount = size % vector_element_count::value;
-    base_t * dataPtr = (base_t *) array;
-    
-    /// fill state register
-    vector_t resultVec = set1<VectorExtension>(0);// = setzero<VectorExtension>( );
-    
-    /// process each vector
-    for (size_t i = 0; i < vectorCount; ++ i) {
-        /// load into buffer register, then add to state
-        resultVec = add<VectorExtension>(
-          resultVec, load<VectorExtension, vectorlib::iov::UNALIGNED>(dataPtr)
-        );
-        dataPtr += vector_element_count::value;
-    }
-    
-    /// horizontal add from state register into base type
-    base_t result = hadd<VectorExtension>(resultVec);
-    
-    /// process remainder
-    if (remainderCount != 0) {
-        base_t const * remainderPtr = dataPtr;
-        for (size_t i = 0; i < remainderCount; ++ i) {
-            result += *remainderPtr ++;
-        }
-    }
-    
-    *out = result;
-    return;
+  using namespace vectorlib;
+  
+  //using VectorExtension = scalar<v16<uint16_t>>;
+  // using VectorExtension = sse<v128<uint64_t>>;
+  //using VectorExtension = avx2<v256<uint32_t>>;
+  #ifdef TSUBASA
+  using VectorExtension = tsubasa<v16384<uint64_t> >;
+  #endif
+  #ifdef AVX512
+  using VectorExtension = avx512<v512<uint64_t> >;
+  #endif
+  IMPORT_VECTOR_BOILER_PLATE(VectorExtension)
+  
+  size_t const vectorCount = size / vector_element_count::value;
+  size_t const remainderCount = size % vector_element_count::value;
+  base_t * dataPtr = (base_t*) array;
+  vector_t resultVec = set1<VectorExtension,vector_base_t_granularity::value>(0);// = setzero<VectorExtension>( );
+      
+  for( size_t i = 0; i < vectorCount; ++i ) {
+         resultVec = add<VectorExtension, vector_base_t_granularity::value>(
+            resultVec, load<VectorExtension,vectorlib::iov::UNALIGNED,  vector_base_t_granularity::value>( dataPtr)
+         );
+         dataPtr += vector_element_count::value;
+  }
+
+  base_t result = hadd<VectorExtension,vector_base_t_granularity::value>( resultVec );
+
+  if( remainderCount != 0) {
+     base_t const * remainderPtr = dataPtr;
+     for( size_t i = 0; i < remainderCount; ++i ) {
+        result += *remainderPtr++;
+     }
+  }
+
+  *out=result;
+  return;
 }
 
-int main(void) {
-    using namespace vectorlib;
-    
-    #ifdef SCALAR
-    /// 8 bit variant
-//    using VectorExtension = scalar<v64<uint8_t>>;
-    /// 16 bit variant
-//    using VectorExtension = scalar<v64<uint16_t>>;
-    /// 32 bit variant
-//    using VectorExtension = scalar<v64<uint32_t>>;
-    /// 64 bit variant
-    using VectorExtension = scalar<v64<uint64_t>>;
-    #endif
-    #ifdef SSE
-    /// 32 bit variant
-    using VectorExtension = sse<v128<uint32_t>>;
-    /// 64 bit variant
-//    using VectorExtension = sse<v128<uint64_t>>;
-    #endif
-    #ifdef AVXTWO
-    /// 32 bit variant
-//    using VectorExtension = avx2<v256<uint32_t>>;
-    /// 64 bit variant
-    using VectorExtension = avx2<v256<uint64_t>>;
-    #endif
-    #ifdef AVX512
-    using VectorExtension = avx512<v512<uint64_t> >;
-    #endif
-    #ifdef TSUBASA
-    using VectorExtension = tsubasa<v16384<uint64_t> >;
-    #endif
-    
-    /// This creates convenience typedefs like base_t, vector_element_count etc.
-    IMPORT_VECTOR_BOILER_PLATE(VectorExtension)
-    
-    /// element count // size of our "column"
-    int size = 25600000;
-    auto array = new base_t[size];
-    
+int main (void){
+  using namespace vectorlib;
+  
+  //using VectorExtension = scalar<v16<uint16_t>>;
+  //using VectorExtension = sse<v128<uint64_t>>;
+  //using VectorExtension = avx2<v256<uint32_t>>;
+  #ifdef TSUBASA
+  using VectorExtension = tsubasa<v16384<uint64_t> >;
+  #endif
+  #ifdef AVX512
+  using VectorExtension = avx512<v512<uint64_t> >;
+  #endif
+  
+  IMPORT_VECTOR_BOILER_PLATE(VectorExtension)
+
+   
+    int size= 25600000;
+    auto array =  new base_t[size];
+   
     srand(time(NULL));
     
-    /// fill our column
-    for (int i = 0; i < size; i ++) array[i] = rand() % 100;
-    int out = 0;
+    for (int i=0;i<size;i++) array[i]=rand()%100;
+    int out=0;
     
-    std::cout << "Aggregation started...\n";
+    std::cout << "Aggregation started... ";
+           
+    benchmark([&] { aggregate(array, size, &out); }, 10);
+   
+    std::cout << "done.\n Result: "<< out << std::endl << std::endl;
     
-    benchmark([&] { aggregate<VectorExtension>(array, size, &out); }, 10);
-    
-    std::cout << "Done.\n Result: " << out << std::endl << std::endl;
-    
-    
+      
 }
