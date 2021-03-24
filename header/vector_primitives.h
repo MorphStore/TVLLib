@@ -23,7 +23,7 @@
  #  include <generated/avx512/primitives/manipulate_avx512.h>
 #endif
 
-#ifdef AVXTWO
+#if defined(AVXTWO) or defined(AVX512)
 #  include <generated/avx2/primitives/calc_avx2.h>
 #  include <generated/avx2/primitives/compare_avx2.h>
 #  include <generated/avx2/primitives/create_avx2.h>
@@ -33,7 +33,7 @@
 #  include <generated/avx2/primitives/manipulate_avx2.h>
 #endif
 
-#ifdef SSE
+#if defined(SSE) or defined(AVXTWO)
 #  include <generated/sse/primitives/calc_sse.h>
 #  include <generated/sse/primitives/compare_sse.h>
 #  include <generated/sse/primitives/create_sse.h>

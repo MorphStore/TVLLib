@@ -31,7 +31,7 @@
 #endif
 
 #ifdef AVX512
-#undef SCALAR
+  #undef SCALAR
 #endif
 
 #ifdef TSUBASA
