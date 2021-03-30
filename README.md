@@ -148,7 +148,7 @@ There are 3 things necessary for a successful build process:
 
 A simple way to build with support for avx2, sse, and scalar, with g++ is the following line:
 
-*g++ -DAVXTWO -DSSE -DSCALAR -mavx2 -msse4.2 -I/$TVL -o <NameOfTheBinary> <YourSouceFile>.cpp*
+*g++ -DAVXTWO -DSSE -DSCALAR -mavx2 -msse4.2 -I/$TVL -o \<NameOfTheBinary\> \<YourSouceFile\>.cpp*
 
 where *TVLLibGenerator* is the folder containing the *header* and *generated* folders.
 
