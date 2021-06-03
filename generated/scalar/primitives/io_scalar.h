@@ -72,6 +72,19 @@ namespace vectorlib{
 		}
 	}
 ;
+   template<
+	>
+	struct load_t <scalar<v64<double>>, iov::UNALIGNED,  64> {
+		MSV_CXX_ATTRIBUTE_FORCE_INLINE
+		static
+		typename scalar<v64<double>>::vector_t apply (
+			 typename scalar<v64<double>>::base_t * p_DataPtr,
+			 int element_count = scalar<v64<double>>::vector_helper_t::element_count::value)
+		{
+			return *p_DataPtr;
+		}
+	}
+;
 	template<
 	>
 	struct load_t <scalar<v64<uint32_t>>, iov::UNALIGNED,  32> {

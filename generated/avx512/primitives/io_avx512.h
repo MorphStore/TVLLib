@@ -282,6 +282,32 @@ namespace vectorlib{
 ;
 	template<
 	>
+	struct load_t <avx512<v512<double>>, iov::UNALIGNED,  64> {
+		MSV_CXX_ATTRIBUTE_FORCE_INLINE
+		static
+		typename avx512<v512<double>>::vector_t apply (
+			 typename avx512<v512<double>>::base_t * p_DataPtr,
+			 int element_count = avx512<v512<double>>::vector_helper_t::element_count::value)
+		{
+			return _mm512_loadu_pd(( void * )(p_DataPtr));
+		}
+	}
+;
+	template<
+	>
+	struct load_t <avx512<v512<double>>, iov::ALIGNED,  64> {
+		MSV_CXX_ATTRIBUTE_FORCE_INLINE
+		static
+		typename avx512<v512<double>>::vector_t apply (
+			 typename avx512<v512<double>>::base_t * p_DataPtr,
+			 int element_count = avx512<v512<double>>::vector_helper_t::element_count::value)
+		{
+			return _mm512_load_pd(( void * )(p_DataPtr));
+		}
+	}
+;
+	template<
+	>
 	struct load_t <avx512<v512<uint32_t>>, iov::UNALIGNED,  32> {
 		MSV_CXX_ATTRIBUTE_FORCE_INLINE
 		static

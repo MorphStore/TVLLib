@@ -242,6 +242,21 @@ namespace vectorlib{
 ;
 	template<
 	>
+	struct hadd_t <avx2<v256<double>>,  64> {
+		MSV_CXX_ATTRIBUTE_FORCE_INLINE
+		static
+		typename avx2<v256<double>>::base_t apply (
+			 typename avx2<v256<double>>::vector_t const & p_vec1,
+			 int element_count = avx2<v256<double>>::vector_helper_t::element_count::value)
+		{
+			__m256d tmp = _mm256_hadd_pd( p_vec1, p_vec1); // need 0 and 2
+			return _mm256_cvtsd_f64( tmp ) + _mm256_cvtsd_f64( _mm256_permute2f128_pd(tmp,tmp,1) ); // Works
+			// return _mm256_cvtsd_f64( tmp ) + _mm256_cvtsd_f64( _mm256_castsi256_pd(_mm256_srli_si256(_mm256_castpd_si256(tmp) , 16 )));
+		}
+	}
+;
+	template<
+	>
 	struct hadd_t <avx2<v256<uint32_t>>,  32> {
 		MSV_CXX_ATTRIBUTE_FORCE_INLINE
 		static

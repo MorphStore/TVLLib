@@ -106,6 +106,19 @@ namespace vectorlib{
 ;
 	template<
 	>
+	struct hadd_t <sse<v128<double>>,  64> {
+		MSV_CXX_ATTRIBUTE_FORCE_INLINE
+		static
+		typename sse<v128<double>>::base_t apply (
+			 typename sse<v128<double>>::vector_t const & p_vec1,
+			 int element_count = sse<v128<double>>::vector_helper_t::element_count::value)
+		{
+			return static_cast<double>( _mm_cvtsd_f64( _mm_hadd_pd( p_vec1, p_vec1 ) ) );
+		}
+	}
+;
+	template<
+	>
 	struct hadd_t <sse<v128<uint32_t>>,  32> {
 		MSV_CXX_ATTRIBUTE_FORCE_INLINE
 		static
@@ -227,6 +240,18 @@ namespace vectorlib{
 		}
 	}
 ;
+
+// inline __attribute__((always_inline)) __m128d sse_convert_i64_pd( __m128i a ) {
+	// return _mm_set_pd( static_cast< double >( _mm_extract_epi64( a, 1 ) ), static_cast< double >( _mm_extract_epi64( a, 0 ) ) );
+// }
+
+// inline __attribute__((always_inline)) __m128i sse_convert_pd_i64( __m128d a ) {
+	// return _mm_set_epi64x( 
+		// _mm_cvttsd_si64x( _mm_castsi128_pd( _mm_srli_si128( _mm_castpd_si128( a ), 8 ) ) ),
+		// _mm_cvttsd_si64x( a )
+	// );
+// }
+
 	template<
 	>
 	struct mul_t <sse<v128<uint64_t>>,  64> {
@@ -237,7 +262,16 @@ namespace vectorlib{
 			 typename sse<v128<uint64_t>>::vector_t const & p_vec2,
 			 int element_count = sse<v128<uint64_t>>::vector_helper_t::element_count::value)
 		{
-			return _mm_castpd_si128( _mm_mul_pd( _mm_castsi128_pd(p_vec1), _mm_castsi128_pd(p_vec2) ) );
+			return _mm_set_epi64x( 
+				static_cast< long long >( 
+					static_cast< double >( _mm_extract_epi64( p_vec1, 1 ) ) * static_cast< double >( _mm_extract_epi64( p_vec2, 1 ) ) 
+				),
+				static_cast< long long >( 
+					static_cast< double >( _mm_extract_epi64( p_vec1, 0 ) ) * static_cast< double >( _mm_extract_epi64( p_vec2, 0 ) ) 
+				) 
+			);
+			// return sse_convert_pd_i64( _mm_mul_pd( sse_convert_i64_pd( p_vec1 ), sse_convert_i64_pd( p_vec2 ) ) );
+			// return _mm_castpd_si128( _mm_mul_pd( _mm_castsi128_pd(p_vec1), _mm_castsi128_pd(p_vec2) ) );
 		}
 	}
 ;

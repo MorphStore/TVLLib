@@ -274,6 +274,19 @@ namespace vectorlib{
 ;
 	template<
 	>
+	struct hadd_t <avx512<v512<double>>,  64> {
+		MSV_CXX_ATTRIBUTE_FORCE_INLINE
+		static
+		typename avx512<v512<double>>::base_t apply (
+			 typename avx512<v512<double>>::vector_t const & p_vec1,
+			 int element_count = avx512<v512<double>>::vector_helper_t::element_count::value)
+		{
+			return _mm512_reduce_add_pd(p_vec1);
+		}
+	}
+;
+	template<
+	>
 	struct hadd_t <avx512<v512<uint32_t>>,  32> {
 		MSV_CXX_ATTRIBUTE_FORCE_INLINE
 		static
@@ -528,6 +541,20 @@ namespace vectorlib{
 	template<
 	>
 	struct mul_t <avx512<v512<double>>,  32> {
+		MSV_CXX_ATTRIBUTE_FORCE_INLINE
+		static
+		typename avx512<v512<double>>::vector_t apply (
+			 typename avx512<v512<double>>::vector_t const & p_vec1,
+			 typename avx512<v512<double>>::vector_t const & p_vec2,
+			 int element_count = avx512<v512<double>>::vector_helper_t::element_count::value)
+		{
+			return _mm512_mul_pd(p_vec1 , p_vec2);
+		}
+	}
+;
+template<
+	>
+	struct mul_t <avx512<v512<double>>,  64> {
 		MSV_CXX_ATTRIBUTE_FORCE_INLINE
 		static
 		typename avx512<v512<double>>::vector_t apply (

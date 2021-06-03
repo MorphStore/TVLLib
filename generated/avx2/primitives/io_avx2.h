@@ -178,6 +178,19 @@ namespace vectorlib{
 ;
 	template<
 	>
+	struct load_t <avx2<v256<double>>, iov::UNALIGNED,  64> {
+		MSV_CXX_ATTRIBUTE_FORCE_INLINE
+		static
+		typename avx2<v256<double>>::vector_t apply (
+			 typename avx2<v256<double>>::base_t * p_DataPtr,
+			 int element_count = avx2<v256<double>>::vector_helper_t::element_count::value)
+		{
+			return _mm256_loadu_pd(reinterpret_cast<double const *>(p_DataPtr));
+		}
+	}
+;
+	template<
+	>
 	struct load_t <avx2<v256<uint32_t>>, iov::UNALIGNED,  32> {
 		MSV_CXX_ATTRIBUTE_FORCE_INLINE
 		static
@@ -295,7 +308,7 @@ namespace vectorlib{
 			 typename avx2<v256<uint32_t>>::vector_t p_vec,
 			 int element_count = avx2<v256<uint32_t>>::vector_helper_t::element_count::value)
 		{
-			return _mm256_i32gather_epi32( reinterpret_cast<const long long int *> (p_DataPtr), p_vec,  sizeof(uint32_t) );//a bit limited
+			return _mm256_i32gather_epi32( reinterpret_cast<const int *> (p_DataPtr), p_vec,  sizeof(uint32_t) );//a bit limited
 		}
 	}
 ;
@@ -365,7 +378,7 @@ namespace vectorlib{
 			 typename avx2<v256<float>>::vector_t p_vec,
 			 int element_count = avx2<v256<float>>::vector_helper_t::element_count::value)
 		{
-			return _mm256_i32gather_ps( reinterpret_cast<const float *> (p_DataPtr), p_vec,  sizeof(float) );//a bit limited
+			return _mm256_i32gather_ps( reinterpret_cast<const float *> (p_DataPtr), _mm256_castps_si256( p_vec ),  sizeof(float) );//a bit limited --- Beware about the cast
 		}
 	}
 ;
@@ -379,7 +392,7 @@ namespace vectorlib{
 			 typename avx2<v256<double>>::vector_t p_vec,
 			 int element_count = avx2<v256<double>>::vector_helper_t::element_count::value)
 		{
-			return _mm256_i64gather_pd( reinterpret_cast<const double *> (p_DataPtr), p_vec,  sizeof(double) );
+			return _mm256_i64gather_pd( reinterpret_cast<const double *> (p_DataPtr), _mm256_castpd_si256( p_vec ),  sizeof(double) ); // --- Beware about the cast
 		}
 	}
 ;
@@ -475,7 +488,7 @@ namespace vectorlib{
 			 typename avx2<v128<float>>::vector_t p_vec,
 			 int element_count = avx2<v128<float>>::vector_helper_t::element_count::value)
 		{
-			return _mm_i32gather_ps( reinterpret_cast<const float *> (p_DataPtr), p_vec,  sizeof(double) );//a bit limited
+			return _mm_i32gather_ps( reinterpret_cast<const float *> (p_DataPtr), _mm_castps_si128( p_vec ),  sizeof(float) );//a bit limited --- Beware about the cast
 		}
 	}
 ;
@@ -489,7 +502,7 @@ namespace vectorlib{
 			 typename avx2<v128<double>>::vector_t p_vec,
 			 int element_count = avx2<v128<double>>::vector_helper_t::element_count::value)
 		{
-			return _mm_i64gather_pd( reinterpret_cast<const double *> (p_DataPtr), p_vec,  sizeof(float) );
+			return _mm_i64gather_pd( reinterpret_cast<const double *> (p_DataPtr), _mm_castpd_si128( p_vec ),  sizeof(double) );//a bit limited --- Beware about the cast
 		}
 	}
 ;
